@@ -101,11 +101,11 @@ define(['kloudspeaker/plugins', 'kloudspeaker/events', 'kloudspeaker/permissions
         var params = {};
 
         if(hierarchy) {
-            params['h'] = 1;
+            params.h = 1;
         }
 
         if(showHiddenFiles) {
-            params['sh'] = 1;
+            params.sh = 1;
         }
 
         return service.post("filesystem/" + (id ? id : "roots") + "/info/?" + $.param(params), {
