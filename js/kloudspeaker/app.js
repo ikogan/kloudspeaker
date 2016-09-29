@@ -164,9 +164,13 @@ define([], function() {
                 } else {
                     var s = session.get();
                     if (!s.user) {
-                        var LoginView = require('kloudspeaker/ui/views/login');
-                        app.activeView = new LoginView();
-                        app.activeViewId = "login";
+                        if($.inArray('external-login-url', settings)) {
+                            window.location = settings["external-login-url"];
+                        } else {
+                            var LoginView = require('kloudspeaker/ui/views/login');
+                            app.activeView = new LoginView();
+                            app.activeViewId = "login";
+                        }
                     } else {
                         var MainView = require('kloudspeaker/ui/views/main');
                         app.activeView = new MainView();

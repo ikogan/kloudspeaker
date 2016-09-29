@@ -103,18 +103,23 @@ define(['kloudspeaker/settings', 'kloudspeaker/events', 'kloudspeaker/localizati
                     session.end(true);
                     failContext.handled = true;
                 }
-                // push default handler to end of callback list
-                setTimeout(function() {
-                    df.fail(function(err) {
-                        if (failContext.handled) return;
-                        // request denied
-                        if (err.code == 109 && err.data && err.data.items) {
-                            ui.actions.handleDenied(null, err.data, loc.get('genericActionDeniedMsg'));
-                        } else {
-                            dialogs.showError(err);
-                        }
-                    });
-                }, 0);
+
+                if(xhr.status == 401 && $.inArray('external-login-url', settings)) {
+                    window.location = settings['external-login-url'];
+                } else {
+                    // push default handler to end of callback list
+                    setTimeout(function() {
+                        df.fail(function(err) {
+                            if (failContext.handled) return;
+                            // request denied
+                            if (err.code == 109 && err.data && err.data.items) {
+                                ui.actions.handleDenied(null, err.data, loc.get('genericActionDeniedMsg'));
+                            } else {
+                                dialogs.showError(err);
+                            }
+                        });
+                    }, 0);
+                }
                 return df.rejectWith(failContext, [error]);
             }).promise()
         }((s && s.id) ? s.id : null));
