@@ -104,7 +104,7 @@ define(['kloudspeaker/settings', 'kloudspeaker/events', 'kloudspeaker/localizati
                     failContext.handled = true;
                 }
 
-                if(xhr.status == 401 && $.inArray('external-login-url', settings)) {
+                if(xhr.status == 401 && settings.hasOwnProperty('external-login-url')) {
                     window.location = settings['external-login-url'];
                 } else {
                     // push default handler to end of callback list

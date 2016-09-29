@@ -164,7 +164,7 @@ define([], function() {
                 } else {
                     var s = session.get();
                     if (!s.user) {
-                        if($.inArray('external-login-url', settings)) {
+                        if(settings.hasOwnProperty('external-login-url')) {
                             window.location = settings["external-login-url"];
                         } else {
                             var LoginView = require('kloudspeaker/ui/views/login');
